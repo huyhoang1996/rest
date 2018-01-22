@@ -4,15 +4,12 @@ import { of } from 'rxjs/observable/of';
 import { Observable } from 'rxjs/Observable';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Http, Headers, Response } from "@angular/http";
-import * as _ from 'lodash';
 import { catchError, map, tap } from 'rxjs/operators';
 
 @Injectable()
 export class SupermanService {
 
   constructor(private http: HttpClient) { }
-
-    
 
 
   getSupermans(): Observable<Superman[]>{
@@ -21,8 +18,6 @@ export class SupermanService {
   }
 
   createSuperman(superman: Superman): Observable<Superman>{
-    var body = JSON.stringify(superman);
-    console.log(body);
     var headers = new HttpHeaders({ 'Content-Type': 'application/json' });
   	var url = `http://localhost:8000/api/user/`;
     var result = this.http.post<Superman>( url, superman, { headers: headers});
@@ -35,6 +30,15 @@ export class SupermanService {
     var superman = this.http.get<Superman>( url);
   	return superman;
   }
+  updateSuperman(superman: Superman): Observable<Superman>{
+    var headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    var id = superman.id;
+    var url = `http://localhost:8000/api/user/${id}/`;
+    var result = this.http.put<Superman>( url, superman, { headers: headers});
+    return result;
+  }
+
+
 }
 
 

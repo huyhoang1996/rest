@@ -29,7 +29,7 @@ class UserAll(generics.ListCreateAPIView):
 		user = User.objects.all()
 		return user
 
-class UserDetail(generics.RetrieveAPIView):
+class UserDetail(generics.RetrieveUpdateAPIView):
 	serializer_class = UserSerializer
 	lookup_field = "id"
 

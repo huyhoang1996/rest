@@ -2,12 +2,13 @@ import { NgModule }             from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { SupermanFormComponent }	from './superman-form/superman-form.component';
-import { SupermanDetailComponent }	from './superman-detail/superman-detail.component';
+import { HelioComponent }	from './helio/helio.component';
+
 
 const routes: Routes = [
   { path: 'superman', component: SupermanFormComponent },
-  { path: 'supermandetail', component: SupermanDetailComponent },
   // { path: '', redirectTo: '/dashboard', pathMatch: 'full' },//default routing
+  { path: 'helio', component: HelioComponent },
 ];
 
 @NgModule({

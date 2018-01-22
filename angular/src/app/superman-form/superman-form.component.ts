@@ -16,9 +16,6 @@ export class SupermanFormComponent implements OnInit {
 
   constructor(private supermanService: SupermanService, private formBuilder: FormBuilder ) { }
 
-  power = ['Really Smart', 'Super Flexible',
-            'Super Hot', 'Weather Changer', 'oc heo'];
-
   model: Superman;
 
   models$: Observable<Superman[]>;
@@ -45,17 +42,20 @@ export class SupermanFormComponent implements OnInit {
   }
 
   getModel( id: number){
-    console.log('id', id);
   	this.supermanService.getSuperman(id).subscribe(result=> this.model= result);
     // console.log(this.model.name);
   }
 
+  updateSuperman(value: any){
+    this.supermanService.updateSuperman(value).subscribe( result=> this.getModels());
+    // console.log(this.model.name);
+  }
   onSubmit(){
 
   }
 
   logValue(value: any){
-  	console.log(value);
+  	console.log('value',value);
   }
 
   createFrom(){

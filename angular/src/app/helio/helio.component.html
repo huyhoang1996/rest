@@ -1,0 +1,228 @@
+
+
+<h2 class="title-helio">liên kết thẻ helio</h2>
+<div class="row ">
+	<div class="col-lg-8 wrapper">
+		<fieldset class="scheduler-border ">
+	    	<legend class="scheduler-border">THÔNG TIN TÀI KHOẢNG HELIO APP</legend>
+			<form class="form-helio col-lg-6" [formGroup]="userAppForm" (ngSubmit)="updateUserApp(userAppForm.value);" autocomplete="false" >
+				<div class="form-group row">
+					<div class="col-lg-5 not-padding">
+						<input type="checkbox" name="vehicle" value="name" #name (change)="userAppState.name = !userAppState.name" >
+					<label for="name">Họ và tên</label>
+					</div>
+					<input  type="text" class="form-control col-lg-7" id="name" required name="name"  formControlName="name" #spy [readonly]="userAppState.name" >
+					<div *ngIf="userAppForm.controls['name'].errors && userAppForm.controls['name'].dirty">
+						<div *ngIf="userAppForm.controls['name'].errors.required">
+					    Name is required.
+					  </div>
+					</div>
+					 <div *ngIf="userAppForm.controls.name.errors.equal">
+					    <p>Name is not equal.</p>
+					  </div>
+				</div>
+				<div class="form-group row">
+					<div class="col-lg-5 not-padding">
+						<input type="checkbox" name="vehicle" value="email" #email (change)="userAppState.email = !userAppState.email">
+						<label for="email">Email</label>
+					</div>
+					<input type="email" class="form-control col-lg-8" id="email"
+					name="email" formControlName="email" required [readonly]="userAppState.email" >
+					<div *ngIf="userAppForm.controls.email.errors.equal">
+					    email is not equal.
+					  </div>
+				</div>
+				<div class="form-group row">
+					<div class="col-lg-5 not-padding">
+						<input type="checkbox" name="vehicle" value="phone" #phone (change)="userAppState.phone = !userAppState.phone" >
+						<label for="email">Số điện thoại</label>
+					</div>
+					<input type="number" class="form-control" id="phone"
+					name="phone" formControlName="phone" required [readonly]="userAppState.phone" >
+					<div *ngIf="userAppForm.controls.phone.errors && (userAppForm.controls.phone.dirty )">
+						<div *ngIf="userAppForm.controls.phone.errors.required">
+					    phone is required.
+					  </div>
+					  <div *ngIf="userAppForm.controls.phone.errors.pattern">
+					    phone is minLength 9.
+					  </div>
+					</div>
+					<div *ngIf="userAppForm.controls.phone.errors.equal">
+					    phone is not equal.
+					  </div>
+				</div>
+				<div class="form-group row">
+					<div class="col-lg-5 not-padding">
+						<input type="checkbox" name="vehicle" value="birthday" #birthday (change)="userAppState.birthday = !userAppState.birthday" >
+						<label for="email">Ngày sinh</label>
+					</div>
+					<input type="text" class="form-control col-lg-1" id="birthday"
+					name="birthday" formControlName="birthday" required [readonly]="userAppState.birthday" >
+					<div *ngIf="userAppForm.controls.birthday.errors.equal">
+					    birthday is not equal.
+					  </div>
+				</div>
+				<div class="form-group row">
+					<div class="col-lg-5 not-padding">
+						<input type="checkbox" name="vehicle" value="government_id" #government_id (change)="userAppState.government_id = !userAppState.government_id" >
+						<label for="email">Chứng minh nhân dân</label>
+					</div>
+					<input type="number" class="form-control" id="government_id"
+					name="government_id" formControlName="government_id" required [readonly]="userAppState.government_id" >
+					<div *ngIf="userAppForm.controls.government_id.errors && (userForm.controls.government_id.dirty )">
+						<div *ngIf="userAppForm.controls.government_id.errors.required">
+					    government is required.
+					  </div>
+					  <div *ngIf="userAppForm.controls.government_id.errors.pattern">
+					    government is minLength 9.
+					  </div>
+					</div>
+					<div *ngIf="userAppForm.controls.government_id.errors.equal">
+					    government_id is not equal.
+					  </div>
+				</div>
+				<div class="form-group row">
+					<div class="col-lg-5 not-padding">
+						<input type="checkbox" name="vehicle" value="address" #address (change)="userAppState.address = !userAppState.address">
+						<label for="email">Địa chỉ</label>
+					</div>
+					<input type="text" class="form-control" id="address"
+					name="address" formControlName="address" required [readonly]="userAppState.address" >
+					<div *ngIf="userAppForm.controls.address.errors.equal">
+					    address is not equal.
+					  </div>
+				</div>
+				<button type="submit" class="btn btn-success" [disabled]="userAppForm.invalid">Submit</button>
+				<div class="success" #success></div>
+
+			</form>
+		
+		<div class="form-group col-lg-6">
+			<div class="col-lg-2 not-padding">
+			<label for="name">Email</label>
+			</div>
+			<div class="col-lg-10">
+				<input  type="text" class="form-control" id="name" required name="name" [(ngModel)]="searchApp" autocomplete="off" #searchApp_id (click)="searchApp_hidden= false ;">
+				<div class="glyphicon glyphicon-search"></div> 
+			</div>
+			<div>
+			<ul class="result" #resultApp *ngIf="!(searchApp == '' || searchApp == undefined) " [hidden]="searchApp_hidden">
+				<!-- <li *ngFor="let item of usersApp| searchList: 'email' : searchApp " > -->
+				<li *ngFor="let item of usersApp| filter : searchApp " >
+					<p #rowResult (click)="getUserApp(item.id); searchApp_id.value=item.email; searchApp_hidden= true ;">{{item.email}}</p>
+ 				</li>
+			</ul>
+			</div>
+		</div>
+		</fieldset>
+	</div>
+</div>
+
+
+
+<div class="row ">
+	<div class="col-lg-8 wrapper">
+		<fieldset class="scheduler-border ">
+	    	<legend class="scheduler-border">THÔNG TIN TÀI KHOẢNG HELIO EMBED</legend>
+			<form class="form-helio col-lg-6" [formGroup]="userForm" (ngSubmit)="updateUser(userForm.value);" autocomplete="false">
+				<div class="form-group row">
+					<div class="col-lg-5 not-padding">
+						<input type="checkbox" name="vehicle" value="name" #name2 (change)="userState.name = !userState.name" >
+						<label for="name">Họ và tên</label>
+					</div>
+					<input  type="text" class="form-control col-lg-7" id="name" required name="name"  formControlName="name" [readonly]="userState.name" >
+					<div *ngIf="userForm.controls['name'].errors && userForm.controls['name'].dirty">
+						<div *ngIf="userForm.controls['name'].errors.required">
+					    Name is required.
+					  	</div>
+					</div>
+					<div *ngIf="userForm.controls.name.errors.equal">
+					    name is not equal.
+					  </div>
+				</div>
+				<div class="form-group row">
+					<div class="col-lg-5 not-padding">
+						<input type="checkbox" name="vehicle" value="email" #email2 (change)="userState.email = !userState.email">
+						<label for="email">Email</label>
+					</div>
+					<input type="email" class="form-control col-lg-8" id="email"
+					name="email" formControlName="email" required [readonly]="userState.email" >
+				</div>
+				<div class="form-group row">
+					<div class="col-lg-5 not-padding">
+						<input type="checkbox" name="vehicle" value="phone" #phone2 (change)="userState.phone = !userState.phone">
+						<label for="email">Số điện thoại</label>
+					</div>
+					<input type="number" class="form-control" id="phone"
+					name="phone" formControlName="phone" required [readonly]="userState.phone" >
+					<div *ngIf="userForm.controls.phone.errors && (userForm.controls.phone.dirty )">
+						<div *ngIf="userForm.controls.phone.errors.required">
+					    phone is required.
+					  </div>
+					  <div *ngIf="userForm.controls.phone.errors.pattern">
+					    phone is minLength 9.
+					  </div>
+					</div>
+				</div>
+				<div class="form-group row">
+					<div class="col-lg-5 not-padding">
+						<input type="checkbox" name="vehicle" value="birthday" #birthday2 (change)="userState.birthday = !userState.birthday">
+						<label for="email">Ngày sinh</label>
+					</div>
+					<input type="text" class="form-control col-lg-1" id="birthday"
+					name="birthday" formControlName="birthday" required [readonly]="userState.birthday" >
+				</div>
+				<div class="form-group row">
+					<div class="col-lg-5 not-padding">
+						<input type="checkbox" name="vehicle" value="government_id" #government_id2 (change)="userState.government_id = !userState.government_id">
+						<label for="email">Chứng minh nhân dân</label>
+					</div>
+					<input type="number" class="form-control" id="government_id"
+					name="government_id" formControlName="government_id" required [readonly]="userState.government_id" >
+					<div *ngIf="userForm.controls.government_id.errors && (userForm.controls.government_id.dirty )">
+						<div *ngIf="userForm.controls.government_id.errors.required">
+					    government is required.
+					  </div>
+					  <div *ngIf="userForm.controls.government_id.errors.pattern">
+					    government is minLength 9.
+					  </div>
+					</div>
+				</div>
+				<div class="form-group row">
+					<div class="col-lg-5 not-padding">
+						<input type="checkbox" name="vehicle" value="address" #address2 (change)="userState.address = !userState.address">
+						<label for="email">Địa chỉ</label>
+					</div>
+					<input type="text" class="form-control" id="address"
+					name="address" formControlName="address" required [readonly]="userState.address" >
+				</div>
+				<button type="submit" class="btn btn-success" [disabled]="userForm.invalid">Submit</button>
+				<div class="success" #success></div>
+			</form>
+
+
+
+
+		<div class="form-group col-lg-6">
+			<div class="col-lg-2 not-padding">
+			<label for="name">Card barcode</label>
+			</div>
+			<div class="col-lg-10">
+				<input  type="text" class="form-control" id="name" required name="name" [(ngModel)]="search" autocomplete="off" (keyup.enter)="getUser(search);" >
+				<div class="glyphicon glyphicon-search"></div> 
+			</div>
+			<div>
+				<div *ngIf="barcode_is_error" class="error">
+					Barcode is not exist
+				</div>
+			</div>
+		</div>
+		</fieldset>
+	</div>
+</div>
+<div class="row">
+	<div class="col-lg-1 col-lg-offset-8">
+		<button class="btn btn-success" (click)="relateUser()" >lien ket</button>
+	</div>
+</div>
+
