@@ -20,7 +20,7 @@ import views
 urlpatterns = [
     url(r'^user/$', views.UserAll.as_view(), ),
     url(r'^userapp/$', views.UserAppAll.as_view(), ),
-    url(r'^user/(?P<pk>\d+)/$', views.UserUpdate.as_view(), ),
+    url(r'^search/$', views.UserUpdate.as_view(), ),
     url(r'^userapp/(?P<pk>\d+)/$', views.UserAppUpdate.as_view(), ),
     url(r'^relate/$', views.relateUser, ),
 ]

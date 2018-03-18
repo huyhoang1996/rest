@@ -26,9 +26,26 @@ class UserAll(generics.ListCreateAPIView):
     queryset = User.objects.all()
 
 
-class UserUpdate(generics.RetrieveUpdateAPIView):
-    serializer_class = UserSerializer
-    queryset = User
+# class UserUpdate(generics.RetrieveUpdateAPIView):
+#     serializer_class = UserSerializer
+#     queryset = User
+
+    # def retrieve(self, instance, request):
+    #     print('hoang')
+    #     instance.save()
+    #     return instance
+
+class UserUpdate(APIView):
+    def get(self, request):
+        email =  self.request.query_params.get('email', None)
+        if email:
+            user = User.objects.get( email = email)
+            serializer = UserSerializer(user)
+            # if serializer.is_valid():
+                # return Response(serializer.data)
+            return Response({'success': serializer.data}, status=200)
+        return Response({'fail': 'no email'}, status=200)
+
 
 
 class UserAppAll(generics.ListCreateAPIView):
