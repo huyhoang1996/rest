@@ -13,12 +13,18 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
-from django.conf.urls import url
+from django.conf.urls import url, include
 import views
+from rest_framework.routers import DefaultRouter
 
+router = DefaultRouter()
+router.register(r'users', views.UserViewSet)
+router.register(r'roles', views.RoleViewSet)
 
 urlpatterns = [
-    url(r'^user/$', views.UserAll.as_view(), ),
-    url(r'^user/(?P<id>\d+)/$', views.UserDetail.as_view(), ),
+    url(r'^viewset/', include(router.urls)),
+    url(r'^user_list/$', views.UserAll.as_view(), ),
+    url(r'^user/(?P<id_user>\d+)/$', views.UserDetail.as_view(), ),
+    url(r'^user/$', views.UserDetailMixin.as_view(), ),
     url(r'^user/update/(?P<id>\d+)/$', views.updateUser, ),
 ]
